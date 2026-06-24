@@ -75,16 +75,12 @@ Several R packages address network visualization, each with different strengths 
 
 # Software design
 
-
-As shown in \autoref{fig:network-layout}, RGraphSpace maps graph elements to the image coordinate system.
-
-![**Figure 1. Graph layout generated using RGraphSpace.** []{label="fig:network-layout"}](figures/Architecture_transparent_highres.png)
+![**Schematic RGraphSpace architecture.** \label{fig:network-layout}](figures/Architecture_transparent_highres.png){width="80%"}
 
 
+The general architecture of RGraphSpace is shown in \autoref{fig:network-layout}. `RGraphSpace` is built around an S4 class system that wraps `igraph` objects and manages their transformation into `ggplot2`-compatible data structures. The core workflow involves:
 
-`RGraphSpace` is built around an S4 class system that wraps `igraph` objects and manages their transformation into `ggplot2`-compatible data structures. The core workflow involves:
-
-1.  **Graph preprocessing**: The `GraphSpace()` constructor accepts an `igraph` object with `x`, `y`, and `name` vertex attributes, along with optional layout matrices or background images. The constructor normalizes all coordinates to a unit space and validates graph attributes.
+1.  **Graph preprocessing**: The `GraphSpace()` constructor accepts an `igraph` object with `x`, `y`, and `name` vertex attributes, along with optional layout matrices or background images. The constructor validates graph attributes and creates the GraphSpace object. Moreover, the `as.GraphSpace()` coercion function also identify additional relational data and convert them to GraphSpace object, this improve interoperability with established packaged, including `ggraph` [@Pedersen:2025] and `Seurat`[@Hao:2023].
 
 2.  **Attribute management**: The package recognizes standard `igraph` vertex attributes (e.g., `nodeSize`, `nodeShape`, `nodeColor`, `nodeLineColor`, `nodeLineWidth`) and edge attributes (e.g., `edgeLineWidth`, `edgeLineColor`, `edgeLineType`, `arrowType`, `arrowLength`) and automatically maps them to appropriate `ggplot2` aesthetics.
 
@@ -151,6 +147,7 @@ doi = {10.32614/CRAN.package.RGraphSpace},
 url = {https://cran.r-project.org/web/packages/RGraphSpace/index.html}
 }
 ```
+
 # AI usage disclosure
 
 During this work's preparation, ChatGPT (OpenAI) was used by the authors to improve the comprehensibility of the R package’s documentation, using RStudio Desktop (<https://posit.co/>). The authors carefully reviewed and polished the content as needed after using this tool/service and assume full responsibility for the published content.
